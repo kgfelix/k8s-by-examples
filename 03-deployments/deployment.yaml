@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind:       Deployment
+metadata:
+  name:      nginx-demo
+  namespace: staging
+  labels:
+    app:     nginx-demo
+spec:
+  replicas: 3 # desired pod count
+  selector:
+    matchLabels:
+      app:   nginx-demo # must match template labels below
+  strategy:
+    type: RollingUpdate # replaces old Pods with new ones incrementally and sequentially, ensuring zero downtime for your application during an upgrade
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge:       1
+  template:
+    metadata:
+      labels:
+        app: nginx-demo
+    spec:
+      containers:
+      - name:  nginx
+        image: nginx:1.27-alpine # official Docker Hub image
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu:    "100m"
+            memory: "64Mi"
+          limits:
+            cpu:    "200m"
+            memory: "128Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds:       5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds:       10
