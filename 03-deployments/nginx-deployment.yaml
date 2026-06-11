@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name:  nginx
-        image: nginx:1.27-alpine # official Docker Hub image
+        image: nginx:1.26-alpine # official Docker Hub image
         ports:
         - containerPort: 80
         resources:
