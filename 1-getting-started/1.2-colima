@@ -1,0 +1,11 @@
+# Colima
+
+### Check if Colima is currently running
+```bash
+colima status
+```
+
+### Restart Colima explicitly enabling the Kubernetes cluster
+```bash
+colima start --kubernetes
+```

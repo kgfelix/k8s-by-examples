@@ -6,7 +6,7 @@ metadata:
   labels:
     app:     nginx-demo
 spec:
-  replicas: 3 # desired pod count
+  replicas: 4 # desired pod count
   selector:
     matchLabels:
       app:   nginx-demo # must match template labels below
